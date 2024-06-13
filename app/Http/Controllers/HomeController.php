@@ -70,10 +70,23 @@ class HomeController extends Controller
         ]);
     }
     
+    public function tournamentProfile($id)
+    {
+        // Fetch the tournament by id
+        $tournament = Tournament::findOrFail($id);
+
+        // Pass the tournament to the view
+        return view('tournament-profile', ['tournament' => $tournament]);
+    }
     
-    
-    
-    
+    public function clubProfile($id)
+    {
+        // Fetch the tournament by id
+        $club = Club::findOrFail($id);
+
+        // Pass the tournament to the view
+        return view('club-profile', ['club' => $club]);
+    }
     
 
 }

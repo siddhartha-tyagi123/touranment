@@ -11,7 +11,8 @@ use App\Http\Controllers\HomeController;
 //     return view('welcome');
 // });
 Route::get('/', [HomeController::class, 'index'])->name('home');
-// Route::get('/tournaments/filter', [HomeController::class, 'getFilteredTournaments'])->name('tournaments.filter');
+Route::get('/tournament/{id}', [HomeController::class, 'tournamentProfile'])->name('tournament.show');
+Route::get('/club/{id}', [HomeController::class, 'clubProfile'])->name('club.show');
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');

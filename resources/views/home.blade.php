@@ -117,7 +117,9 @@
 
                 <div class="club-container mt-3">
                     @foreach($data['clubs'] as $club)
-                    <div class="clubs-item">{{ $club->title }}</div>
+                    <a href="{{ route('club.show', $club->id) }}" class="club-link">
+                        <div class="clubs-item">{{ $club->title }}</div>
+                    </a>
                     @endforeach
                 </div>
             </div>
@@ -176,12 +178,15 @@
 
                 <div class="tournaments-container mt-3" id="tournamentsContainer">
                     @foreach($data['tournaments'] as $tournament)
-                    <div class="tournaments-item">{{ $tournament->title }}</div>
+                    <a href="{{ route('tournament.show', $tournament->id) }}" class="tournament-link">
+                        <div class="tournaments-item">{{ $tournament->title }}</div>
+                    </a>
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -207,7 +212,11 @@
                 if (response.data && response.data.tournaments) {
                     response.data.tournaments.forEach(tournament => {
                         $('#tournamentsContainer').append(
-                            `<div class="tournaments-item">${tournament.title}</div>`
+                            `<a href="/tournament/${tournament.id}" class="tournament-link">
+                            <div class="tournaments-item">
+                                ${tournament.title}
+                            </div>
+                        </a>`
                         );
                     });
                 }
@@ -218,6 +227,7 @@
             }
         });
     }
+
 
     // Function to apply club filters
     function applyClubFilters() {
@@ -230,7 +240,11 @@
                 if (response.data && response.data.clubs) {
                     response.data.clubs.forEach(club => {
                         $('.club-container').append(
-                            `<div class="clubs-item">${club.title}</div>`
+                            `<a href="/club/${club.id}" class="club-link">
+                            <div class="clubs-item">
+                                ${club.title}
+                            </div>
+                        </a>`
                         );
                     });
                 }
