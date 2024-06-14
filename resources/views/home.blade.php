@@ -63,22 +63,66 @@
         color: white;
     }
 
-    .filter {
-        padding: 10px;
-        /* margin: 5px; */
-        height: 40px;
-        width: 100px;
+    .card-side {
+        height: 600px;
+        width: 200px;
+        text-align: center;
+        /* padding: 15px; */
+        color: white;
+        background-color: #1E88E5;
+        margin-left: 15px;
     }
+
+    .img-fluid {
+        width: 200px;
+        height: 120px;
+    }
+
+    .card-text,
+    .info-text {
+        margin-top: 100px;
+    }
+    .searchFilter {
+            display: none;
+        }
+        .picture-container {
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            margin-top: 30px;
+            width: 1220px;
+            height: 120px;
+            background-color: #f8f9fa;
+            margin-bottom: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <div class="sidebar d-flex flex-column align-items-start">
-        <div class="p-3">
-            <img src="logo.png" alt="Logo" class="img-fluid" style="max-width: 100px;">
+        <div class="">
+            <img src="{{ asset('admin_assets/image/images.png') }}" alt="Logo" class="img-fluid">
         </div>
-        <div class="p-3">
-            <!-- Additional sidebar content can go here -->
+        <div class="container card-container">
+            <div class="card card-side">
+                <div class="card-headers">
+                    <b>CLUB<br> LOGO</b>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <!-- Additional sidebar content can go here -->
+                        <p><b>INFORMATION<br>
+                                ABOUT THE<br>
+                                CLUB</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="info-text">
+                    <b>ADDRESS</b><br>
+                    <b>EMAIL</b><br>
+                    <b>PHONE</b>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -88,6 +132,13 @@
         <button type="button" class="btn btn-info">Players</button>
         <button type="button" class="btn btn-primary w-100 mb-2 sign-in"
             onclick="window.location.href='{{ route('login') }}'">Sign In/Log In</button>
+            <div class="container picture-container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4><b>PICTURE OF CLUB/LOGO<b></h4>
+                    </div>
+                </div>
+            </div>
 
         <div class="card" id="clubsList" style="display: none;">
             <div class="card-header">Clubs Filter</div>
@@ -127,9 +178,14 @@
 
 
         <div class="card" id="tournamentsList" style="display: none;">
-            <div class="card-header">Tournaments Filter</div>
+            <div class="card-header"></div>
             <div class="card-body">
-                <form id="filterForm">
+                <button type="button" id="searchButton" class="btn btn-primary">Search For Tournament</button>
+                <button type="button" id="" class="btn btn-primary">Upcoming Tournament</button>
+                <button type="button" id="" class="btn btn-primary">Organise A Tournament</button>
+                <button type="button" id="" class="btn btn-primary">Pictures</button>
+
+                <form id="filterForm" class="searchFilter">
                     <div class="container">
                         <div class="row g-3">
                             <div class="col-6 col-md-3">
@@ -170,7 +226,8 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="button" class="" onclick="applyTournamentFilters()">Filter</button>
+                            <button type="button" class=""
+                                onclick="applyTournamentFilters()">Filter</button>
                         </div>
                     </div>
                 </form>
@@ -255,6 +312,18 @@
             }
         });
     }
+    </script>
+    <script>
+    document.getElementById('searchButton').addEventListener('click', function() {
+        // var filterForm = document.getElementById('searchFilter');
+        var filterForm = document.querySelector('.searchFilter');
+
+        if (filterForm.style.display === 'none' || filterForm.style.display === '') {
+            filterForm.style.display = 'block';
+        } else {
+            filterForm.style.display = 'none';
+        }
+    });
     </script>
 </body>
 
