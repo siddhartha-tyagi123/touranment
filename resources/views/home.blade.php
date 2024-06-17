@@ -82,19 +82,21 @@
     .info-text {
         margin-top: 100px;
     }
+
     .searchFilter {
-            display: none;
-        }
-        .picture-container {
-            border: 1px solid #ddd;
-            border-radius: 30px;
-            margin-top: 30px;
-            width: 1220px;
-            height: 120px;
-            background-color: #f8f9fa;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+        display: none;
+    }
+
+    .picture-container {
+        border: 1px solid #ddd;
+        border-radius: 30px;
+        margin-top: 30px;
+        width: 1220px;
+        height: 120px;
+        background-color: #f8f9fa;
+        margin-bottom: 20px;
+        text-align: center;
+    }
     </style>
 </head>
 
@@ -130,15 +132,28 @@
         <button type="button" class="btn btn-success me-2" onclick="showClubs()">Clubs</button>
         <button type="button" class="btn btn-danger me-2" onclick="showTournaments()">Tournaments</button>
         <button type="button" class="btn btn-info">Players</button>
+        @guest
         <button type="button" class="btn btn-primary w-100 mb-2 sign-in"
             onclick="window.location.href='{{ route('login') }}'">Sign In/Log In</button>
-            <div class="container picture-container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h4><b>PICTURE OF CLUB/LOGO<b></h4>
-                    </div>
+        @endguest
+
+        @auth
+        <button type="button" class="btn btn-primary w-100 mb-2 sign-in"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Log Out
+        </button>
+        <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
+            @csrf
+        </form>
+        @endauth
+
+        <div class="container picture-container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4><b>PICTURE OF CLUB/LOGO<b></h4>
                 </div>
             </div>
+        </div>
 
         <div class="card" id="clubsList" style="display: none;">
             <div class="card-header">Clubs Filter</div>
@@ -181,7 +196,24 @@
             <div class="card-header"></div>
             <div class="card-body">
                 <button type="button" id="searchButton" class="btn btn-primary">Search For Tournament</button>
-                <button type="button" id="" class="btn btn-primary">Upcoming Tournament</button>
+                @guest
+                <button type="button" id="tooltipButton" class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'" data-toggle="tooltip"
+                    title="Please login to see the upcoming tournament.">Upcoming Tournament</button>
+                <script>
+                $(document).ready(function() {
+                    $('#tooltipButton').tooltip();
+                });
+                </script>
+                @endguest
+
+                @auth
+                @if(auth()->user()->type == 2)
+                <button type="button" id="upcomingButton" class="btn btn-primary">Upcoming Tournament</button>
+                @endif
+                @endauth
+
+
+
                 <button type="button" id="" class="btn btn-primary">Organise A Tournament</button>
                 <button type="button" id="" class="btn btn-primary">Pictures</button>
 
@@ -226,8 +258,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="button" class=""
-                                onclick="applyTournamentFilters()">Filter</button>
+                            <button type="button" class="" onclick="applyTournamentFilters()">Filter</button>
                         </div>
                     </div>
                 </form>
@@ -236,7 +267,8 @@
                 <div class="tournaments-container mt-3" id="tournamentsContainer">
                     @foreach($data['tournaments'] as $tournament)
                     <a href="{{ route('tournament.show', $tournament->id) }}" class="tournament-link">
-                        <div class="tournaments-item">{{ $tournament->title }}</div>
+                        <div class="tournaments-item" data-status="{{ $tournament->status }}">{{ $tournament->title }}
+                        </div>
                     </a>
                     @endforeach
                 </div>
@@ -323,8 +355,29 @@
         } else {
             filterForm.style.display = 'none';
         }
+
+        // Show all tournaments
+        const tournaments = document.querySelectorAll('.tournaments-item');
+        tournaments.forEach(function(tournament) {
+            tournament.style.display = 'block';
+        });
     });
-    </script>
+</script>
+
+<script>
+    // Upcoming status code
+    document.getElementById('upcomingButton').addEventListener('click', function() {
+        const tournaments = document.querySelectorAll('.tournaments-item');
+        tournaments.forEach(function(tournament) {
+            if (tournament.getAttribute('data-status') === 'upcoming') {
+                tournament.style.display = 'block';
+            } else {
+                tournament.style.display = 'none';
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

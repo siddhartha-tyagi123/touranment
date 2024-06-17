@@ -108,7 +108,7 @@ class AuthController extends Controller
         } elseif($user->type === 2){
             $request->session()->regenerate();
           
-            return redirect()->route('dashboard');
+            return redirect()->route('home');
         }
     }
     return redirect()->back()->withErrors([
@@ -123,7 +123,7 @@ class AuthController extends Controller
   
         $request->session()->invalidate();
   
-        return redirect('login');
+        return redirect()->route('home');
     }
 
     public function profile(string $id)

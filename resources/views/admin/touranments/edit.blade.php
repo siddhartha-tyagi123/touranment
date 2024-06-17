@@ -31,7 +31,7 @@
     </div>
     <div class="row mb-3">
         <div class="col-sm-4">
-        <label class="form-label">Country</label>
+            <label class="form-label">Country</label>
             <select name="country_id" id="country_id" class="form-control">
                 <option value="">Select Country</option>
                 @foreach($countries as $country)
@@ -40,6 +40,14 @@
                 </option>
                 @endforeach
             </select>
+        </div>
+        <div class="col-sm-4">
+        <label class="form-label">Status</label>
+        <select name="status" id="status" class="form-control">
+            <option value="present" {{ $tournament->status == 'present' ? 'selected' : '' }}>Present</option>
+            <option value="upcoming" {{ $tournament->status == 'upcoming' ? 'selected' : '' }}>Up Coming</option>
+            <option value="past" {{ $tournament->status == 'past' ? 'selected' : '' }}>Past</option>
+        </select>
         </div>
     </div>
 

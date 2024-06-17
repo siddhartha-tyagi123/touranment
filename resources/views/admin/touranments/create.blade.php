@@ -32,6 +32,13 @@
                 @endforeach
             </select>
         </div>
+        <div class="col-sm-4">
+            <select name="status" id="status" class="form-control">
+                <option value="present">Present</option>
+                <option value="upcoming">Up Coming</option>
+                <option value="past">Past</option>
+            </select>
+        </div>
     </div>
 
 
