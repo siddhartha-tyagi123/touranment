@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Touranment')
+@section('title', 'Edit Tournament')
 
 @section('contents')
-<h1 class="mb-0">Edit Touranment</h1>
+<h1 class="mb-0">Edit Tournament</h1>
 <hr />
 <form action="{{ route('touranments.update', $tournament->id) }}" method="POST">
     @csrf

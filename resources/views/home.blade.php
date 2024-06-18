@@ -129,8 +129,18 @@
     </div>
 
     <div class="content">
+        @if(auth()->check() && auth()->user()->type == 2)
         <button type="button" class="btn btn-success me-2" onclick="showClubs()">Clubs</button>
+        @else
+        <button type="button" class="btn btn-success me-2" onclick="window.location.href='{{ route('login') }}'">Clubs</button>
+        @endif
+         
+        @if(auth()->check() && auth()->user()->type == 2)
         <button type="button" class="btn btn-danger me-2" onclick="showTournaments()">Tournaments</button>
+        @else
+        <button type="button" class="btn btn-danger me-2" onclick="window.location.href='{{ route('login') }}'">Tournaments</button>
+        @endif
+
         <button type="button" class="btn btn-info">Players</button>
         @guest
         <button type="button" class="btn btn-primary w-100 mb-2 sign-in"
@@ -197,7 +207,8 @@
             <div class="card-body">
                 <button type="button" id="searchButton" class="btn btn-primary">Search For Tournament</button>
                 @guest
-                <button type="button" id="tooltipButton" class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'" data-toggle="tooltip"
+                <button type="button" id="tooltipButton" class="btn btn-primary"
+                    onclick="window.location.href='{{ route('login') }}'" data-toggle="tooltip"
                     title="Please login to see the upcoming tournament.">Upcoming Tournament</button>
                 <script>
                 $(document).ready(function() {
@@ -216,6 +227,7 @@
 
                 <button type="button" id="" class="btn btn-primary">Organise A Tournament</button>
                 <button type="button" id="" class="btn btn-primary">Pictures</button>
+                <button type="button" id="pastButton" class="btn btn-primary">Past Tournament</button>
 
                 <form id="filterForm" class="searchFilter">
                     <div class="container">
@@ -362,9 +374,9 @@
             tournament.style.display = 'block';
         });
     });
-</script>
+    </script>
 
-<script>
+    <script>
     // Upcoming status code
     document.getElementById('upcomingButton').addEventListener('click', function() {
         const tournaments = document.querySelectorAll('.tournaments-item');
@@ -376,7 +388,21 @@
             }
         });
     });
-</script>
+    </script>
+
+<script>
+    // past status code
+    document.getElementById('pastButton').addEventListener('click', function() {
+        const tournaments = document.querySelectorAll('.tournaments-item');
+        tournaments.forEach(function(tournament) {
+            if (tournament.getAttribute('data-status') === 'past') {
+                tournament.style.display = 'block';
+            } else {
+                tournament.style.display = 'none';
+            }
+        });
+    });
+    </script>
 
 </body>
 

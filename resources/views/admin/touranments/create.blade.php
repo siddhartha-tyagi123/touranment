@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Create Touranment')
+@section('title', 'Create Tournament')
 
 @section('contents')
-<h1 class="mb-0">Add Touranment</h1>
+<h1 class="mb-0">Add Tournament</h1>
 <hr />
 <form action="{{ route('touranments.store') }}" method="POST" enctype="multipart/form-data">
     @csrf

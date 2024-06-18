@@ -1,11 +1,11 @@
 @extends('layouts.app')
   
-@section('title', 'Home Touranment')
+@section('title', 'Home Tournament')
   
 @section('contents')
     <div class="d-flex align-items-center justify-content-between">
-        <h1 class="mb-0">List Touranment</h1>
-        <a href="{{ route('touranments.create') }}" class="btn btn-primary">Add Touranment</a>
+        <h1 class="mb-0">List Tournament</h1>
+        <a href="{{ route('touranments.create') }}" class="btn btn-primary">Add Tournament</a>
     </div>
     <hr />
     @if(Session::has('success'))
@@ -49,7 +49,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td class="text-center" colspan="5">Touranment not found</td>
+                    <td class="text-center" colspan="5">Tournament not found</td>
                 </tr>
             @endif
         </tbody>
