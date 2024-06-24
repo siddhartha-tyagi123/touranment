@@ -1,302 +1,187 @@
-<!DOCTYPE html>
-<html lang="en">
+@include('nav')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    body {
-        display: flex;
-    }
 
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: #f8f9fa;
-        padding-top: 20px;
-    }
+    <main class="main">
 
-    .content {
-        margin-left: 250px;
-        padding: 20px;
-        flex: 1;
-    }
-
-    .btn {
-        background-color: #1E88E5;
-        color: white;
-        padding: 20px;
-        margin: 5px;
-        height: 70px;
-        width: 300px;
-    }
-
-    .sign-in {
-        background-color: red;
-        border-radius: 50px;
-        height: 60px;
-        width: 275px;
-    }
-
-    .club-container,
-    .tournaments-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 25px;
-    }
-
-    .clubs-item,
-    .tournaments-item {
-        padding: 50px;
-        margin: 10px;
-        border: 1px solid #ddd;
-        border-radius: 50px;
-        background-color: #1E88E5;
-        width: 175px;
-        height: 150px;
-        text-align: center;
-        color: white;
-    }
-
-    .card-side {
-        height: 600px;
-        width: 200px;
-        text-align: center;
-        /* padding: 15px; */
-        color: white;
-        background-color: #1E88E5;
-        margin-left: 15px;
-    }
-
-    .img-fluid {
-        width: 200px;
-        height: 120px;
-    }
-
-    .card-text,
-    .info-text {
-        margin-top: 100px;
-    }
-
-    .searchFilter {
-        display: none;
-    }
-
-    .picture-container {
-        border: 1px solid #ddd;
-        border-radius: 30px;
-        margin-top: 30px;
-        width: 1220px;
-        height: 120px;
-        background-color: #f8f9fa;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    </style>
-</head>
-
-<body>
-    <div class="sidebar d-flex flex-column align-items-start">
-        <div class="">
-            <img src="{{ asset('admin_assets/image/images.png') }}" alt="Logo" class="img-fluid">
-        </div>
-        <div class="container card-container">
-            <div class="card card-side">
-                <div class="card-headers">
-                    <b>CLUB<br> LOGO</b>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <!-- Additional sidebar content can go here -->
-                        <p><b>INFORMATION<br>
-                                ABOUT THE<br>
-                                CLUB</b>
-                        </p>
+        <!-- Hero Section -->
+        <section id="hero" class="hero section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                        <h3>PICTURE OF CLUB/LOGO
+                        </h3>
                     </div>
                 </div>
-                <div class="info-text">
-                    <b>ADDRESS</b><br>
-                    <b>EMAIL</b><br>
-                    <b>PHONE</b>
-                </div>
             </div>
-        </div>
-    </div>
+        </section><!-- /Hero Section -->
 
-    <div class="content">
-        @if(auth()->check() && auth()->user()->type == 2)
-        <button type="button" class="btn btn-success me-2" onclick="showClubs()">Clubs</button>
-        @else
-        <button type="button" class="btn btn-success me-2" onclick="window.location.href='{{ route('login') }}'">Clubs</button>
-        @endif
-         
-        @if(auth()->check() && auth()->user()->type == 2)
-        <button type="button" class="btn btn-danger me-2" onclick="showTournaments()">Tournaments</button>
-        @else
-        <button type="button" class="btn btn-danger me-2" onclick="window.location.href='{{ route('login') }}'">Tournaments</button>
-        @endif
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery section">
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+                <div class="row gy-4 justify-content-center">
 
-        <button type="button" class="btn btn-info">Players</button>
-        @guest
-        <button type="button" class="btn btn-primary w-100 mb-2 sign-in"
-            onclick="window.location.href='{{ route('login') }}'">Sign In/Log In</button>
-        @endguest
+                    <!-- Dynamic Clubs List -->
+                    <div class="col-md-12" id="clubsList" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">Clubs</div>
+                            <div class="card-body">
+                                <button type="button" id="searchButtonClub">Search For Club</button>
+                                <form id="filterFormOne" action="#">
+                                    <div class="container">
+                                        <div class="row g-3">
+                                            <div class="col-6 col-md-3">
+                                                <label for="title_filter">Club Name</label>
+                                                <input type="text" name="title_filter" id="title_filter"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <label for="club_country_filter">Country</label>
+                                                <select name="club_country_filter" id="club_country_filter"
+                                                    class="form-select">
+                                                    <option value="">Select</option>
+                                                    <!-- Replace with actual options dynamically generated -->
+                                                    @foreach ($clubCountryOptions as $id => $country)
+                                                    <option value="{{ $id }}">{{ $country }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="applyClubFilters()">Filter</button>
+                                        </div>
+                                    </div>
+                                </form>
 
-        @auth
-        <button type="button" class="btn btn-primary w-100 mb-2 sign-in"
-            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            Log Out
-        </button>
-        <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
-            @csrf
-        </form>
-        @endauth
-
-        <div class="container picture-container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4><b>PICTURE OF CLUB/LOGO<b></h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="card" id="clubsList" style="display: none;">
-            <div class="card-header">Clubs Filter</div>
-            <div class="card-body">
-                <form id="filterFormOne">
-                    <div class="container">
-                        <div class="row g-3">
-                            <div class="col-6 col-md-3">
-                                <label for="title_filter">Club Name</label>
-                                <input type="text" name="title_filter" id="title_filter" class="form-control">
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <label for="club_country_filter">Country</label>
-                                <select name="club_country_filter" id="club_country_filter" class="form-select">
-                                    <option value="">Select</option>
-                                    @foreach ($clubCountryOptions as $id => $country)
-                                    <option value="{{ $id }}">{{ $country }}</option>
+                                <div class="club-container mt-3">
+                                    <!-- Replace with actual data dynamically generated -->
+                                    @foreach($data['clubs'] as $club)
+                                    <a href="{{ route('club.show', $club->id) }}" class="club-link">
+                                        <div class="clubs-item">{{ $club->title }}</div>
+                                    </a>
                                     @endforeach
-                                </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-end mt-3">
-                            <button type="button" class="" onclick="applyClubFilters()">Filter</button>
                         </div>
                     </div>
-                </form>
 
-                <div class="club-container mt-3">
-                    @foreach($data['clubs'] as $club)
-                    <a href="{{ route('club.show', $club->id) }}" class="club-link">
-                        <div class="clubs-item">{{ $club->title }}</div>
-                    </a>
-                    @endforeach
-                </div>
-            </div>
-        </div>
+                    <!-- Dynamic Tournaments List -->
+                    <div class="col-md-12" id="tournamentsList" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">Tournaments</div>
+                            <div class="card-body">
+                                <button type="button" id="searchButton">Search For Tournament</button>
+                                <form id="filterForm" class="searchFilter" style="display: none;">
+                                    <div class="container">
+                                        <div class="row g-3">
+                                            <div class="col-6 col-md-3">
+                                                <label for="age_filter">Age</label>
+                                                <select name="age_filter" id="age_filter" class="form-select">
+                                                    <option value="">Select</option>
+                                                    <!-- Replace with actual options dynamically generated -->
+                                                    @foreach ($ageOptions as $age)
+                                                    <option value="{{ $age }}">{{ $age }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <label for="date_filter">Date</label>
+                                                <select name="date_filter" id="date_filter" class="form-select">
+                                                    <option value="">Select</option>
+                                                    <!-- Replace with actual options dynamically generated -->
+                                                    @foreach ($dateOptions as $date)
+                                                    <option value="{{ $date }}">{{ $date }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <label for="organiser_filter">Organiser</label>
+                                                <select name="organiser_filter" id="organiser_filter"
+                                                    class="form-select">
+                                                    <option value="">Select</option>
+                                                    <!-- Replace with actual options dynamically generated -->
+                                                    @foreach ($organiserOptions as $organiser)
+                                                    <option value="{{ $organiser }}">{{ $organiser }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <label for="country_filter">Country</label>
+                                                <select name="country_filter" id="country_filter" class="form-select">
+                                                    <option value="">Select</option>
+                                                    @foreach ($countryOptions as $id => $country)
+                                                    <option value="{{ $id }}">{{ $country }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="applyTournamentFilters()">Filter</button>
+                                        </div>
+                                    </div>
+                                </form>
 
-
-        <div class="card" id="tournamentsList" style="display: none;">
-            <div class="card-header"></div>
-            <div class="card-body">
-                <button type="button" id="searchButton" class="btn btn-primary">Search For Tournament</button>
-                @guest
-                <button type="button" id="tooltipButton" class="btn btn-primary"
-                    onclick="window.location.href='{{ route('login') }}'" data-toggle="tooltip"
-                    title="Please login to see the upcoming tournament.">Upcoming Tournament</button>
-                <script>
-                $(document).ready(function() {
-                    $('#tooltipButton').tooltip();
-                });
-                </script>
-                @endguest
-
-                @auth
-                @if(auth()->user()->type == 2)
-                <button type="button" id="upcomingButton" class="btn btn-primary">Upcoming Tournament</button>
-                @endif
-                @endauth
-
-
-
-                <button type="button" id="" class="btn btn-primary">Organise A Tournament</button>
-                <button type="button" id="" class="btn btn-primary">Pictures</button>
-                <button type="button" id="pastButton" class="btn btn-primary">Past Tournament</button>
-
-                <form id="filterForm" class="searchFilter">
-                    <div class="container">
-                        <div class="row g-3">
-                            <div class="col-6 col-md-3">
-                                <label for="age_filter">Age</label>
-                                <select name="age_filter" id="age_filter" class="form-select">
-                                    <option value="">Select</option>
-                                    @foreach ($ageOptions as $age)
-                                    <option value="{{ $age }}">{{ $age }}</option>
+                                <div class="tournaments-container mt-3" id="tournamentsContainer">
+                                    <!-- Replace with actual data dynamically generated -->
+                                    @foreach($data['tournaments'] as $tournament)
+                                    <a href="{{ route('tournament.show', $tournament->id) }}" class="tournament-link">
+                                        <div class="tournaments-item" data-status="{{ $tournament->status }}">
+                                            {{ $tournament->title }}
+                                        </div>
+                                    </a>
                                     @endforeach
-                                </select>
+                                </div>
                             </div>
-                            <div class="col-6 col-md-3">
-                                <label for="date_filter">Date</label>
-                                <select name="date_filter" id="date_filter" class="form-select">
-                                    <option value="">Select</option>
-                                    @foreach ($dateOptions as $date)
-                                    <option value="{{ $date }}">{{ $date }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <label for="organiser_filter">Organiser</label>
-                                <select name="organiser_filter" id="organiser_filter" class="form-select">
-                                    <option value="">Select</option>
-                                    @foreach ($organiserOptions as $organiser)
-                                    <option value="{{ $organiser }}">{{ $organiser }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <label for="country_filter">Country</label>
-                                <select name="country_filter" id="country_filter" class="form-select">
-                                    <option value="">Select</option>
-                                    @foreach ($countryOptions as $id => $country)
-                                    <option value="{{ $id }}">{{ $country }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mt-3">
-                            <button type="button" class="" onclick="applyTournamentFilters()">Filter</button>
                         </div>
                     </div>
-                </form>
 
-
-                <div class="tournaments-container mt-3" id="tournamentsContainer">
-                    @foreach($data['tournaments'] as $tournament)
-                    <a href="{{ route('tournament.show', $tournament->id) }}" class="tournament-link">
-                        <div class="tournaments-item" data-status="{{ $tournament->status }}">{{ $tournament->title }}
-                        </div>
-                    </a>
-                    @endforeach
                 </div>
             </div>
+        </section>
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="copyright text-center">
+                <p>© <span>2024</span> <strong class="px-1 sitename">PhotoFolio</strong> <span>All Rights
+                        Reserved</span></p>
+            </div>
+            <div class="social-links d-flex justify-content-center">
+                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+            <div class="credits">
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
         </div>
-    </div>
+    </footer>
 
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
+    <!-- Vendor JS Files -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="admin_assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="admin_assets/assets/vendor/aos/aos.js"></script>
+    <script src="admin_assets/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="admin_assets/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="admin_assets/assets/js/main.js"></script>
+
     <script>
+    // Function to show clubs list and hide tournaments list
     function showClubs() {
         document.getElementById("clubsList").style.display = "block";
         document.getElementById("tournamentsList").style.display = "none";
     }
 
+    // Function to show tournaments list and hide clubs list
     function showTournaments() {
         document.getElementById("tournamentsList").style.display = "block";
         document.getElementById("clubsList").style.display = "none";
@@ -329,7 +214,6 @@
         });
     }
 
-
     // Function to apply club filters
     function applyClubFilters() {
         $.ajax({
@@ -356,30 +240,31 @@
             }
         });
     }
-    </script>
-    <script>
-    document.getElementById('searchButton').addEventListener('click', function() {
-        // var filterForm = document.getElementById('searchFilter');
-        var filterForm = document.querySelector('.searchFilter');
 
+    // Event listener for Search For Tournament button
+    document.getElementById('searchButton').addEventListener('click', function() {
+        var filterForm = document.getElementById('filterForm');
         if (filterForm.style.display === 'none' || filterForm.style.display === '') {
             filterForm.style.display = 'block';
         } else {
             filterForm.style.display = 'none';
         }
-
-        // Show all tournaments
-        const tournaments = document.querySelectorAll('.tournaments-item');
-        tournaments.forEach(function(tournament) {
-            tournament.style.display = 'block';
-        });
     });
-    </script>
 
-    <script>
-    // Upcoming status code
+    // Event listener for Search For Club button
+    document.getElementById('searchButtonClub').addEventListener('click', function() {
+        var filterFormOne = document.getElementById('filterFormOne');
+        if (filterFormOne.style.display === 'none') {
+            filterFormOne.style.display = 'block';
+        } else {
+            filterFormOne.style.display = 'none';
+        }
+    });
+
+
+    // Event listener for Upcoming Tournament button
     document.getElementById('upcomingButton').addEventListener('click', function() {
-        const tournaments = document.querySelectorAll('.tournaments-item');
+        var tournaments = document.querySelectorAll('.tournaments-item');
         tournaments.forEach(function(tournament) {
             if (tournament.getAttribute('data-status') === 'upcoming') {
                 tournament.style.display = 'block';
@@ -388,12 +273,10 @@
             }
         });
     });
-    </script>
 
-<script>
-    // past status code
+    // Event listener for Past Tournament button
     document.getElementById('pastButton').addEventListener('click', function() {
-        const tournaments = document.querySelectorAll('.tournaments-item');
+        var tournaments = document.querySelectorAll('.tournaments-item');
         tournaments.forEach(function(tournament) {
             if (tournament.getAttribute('data-status') === 'past') {
                 tournament.style.display = 'block';
@@ -403,7 +286,6 @@
         });
     });
     </script>
-
 </body>
 
 </html>

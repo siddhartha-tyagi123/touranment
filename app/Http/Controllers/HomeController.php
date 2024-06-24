@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Club;
 use App\Models\Tournament;
 use App\Models\Country;
+use App\Models\Picture;
 
 class HomeController extends Controller
 {
@@ -87,6 +88,20 @@ class HomeController extends Controller
         // Pass the tournament to the view
         return view('club-profile', ['club' => $club]);
     }
+
+
+    public function pictureActionShow()
+    {
+        $actionPictures = Picture::all();
+
+        return view('picture', ['actionPictures' => $actionPictures]);
+    }
     
+
+    public function tournamentInfo()
+    {
+        $tournamentInfo = Tournament::all(); 
+        return view('tournament-info',['tournamentInfo' => $tournamentInfo]);
+    }
 
 }

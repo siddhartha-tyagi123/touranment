@@ -5,14 +5,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\admin\ClubController;
 use App\Http\Controllers\admin\TouranmentController;
+use App\Http\Controllers\admin\PictureController;
 use App\Http\Controllers\HomeController;
  
-// Route::get('/', function () {
-//     return view('welcome');
+// Route::get('welcome', function () {
+//     return view('tournament-info');
 // });
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tournament/{id}', [HomeController::class, 'tournamentProfile'])->name('tournament.show');
 Route::get('/club/{id}', [HomeController::class, 'clubProfile'])->name('club.show');
+
+
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');
@@ -45,8 +48,20 @@ Route::middleware('auth')->group(function () {
         Route::put('edit/{id}', 'update')->name('touranments.update');
         Route::delete('destroy/{id}', 'destroy')->name('touranments.destroy');
     });
+
+    Route::controller(PictureController::class)->prefix('pictures')->group(function () {
+        Route::get('', 'index')->name('pictures.index');
+        Route::get('create', 'create')->name('pictures.create');
+        Route::post('store', 'store')->name('pictures.store');
+        Route::get('edit/{id}', 'edit')->name('pictures.edit');
+        Route::put('edit/{id}', 'update')->name('pictures.update');
+        Route::delete('destroy/{id}', 'destroy')->name('pictures.destroy');
+    });
  
     Route::get('/profile/{id}', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');
     Route::post('/profile/update/{id}', [App\Http\Controllers\AuthController::class, 'updateProfile'])->name('profile.update');
   
 });
+Route::get('/action/pictures', [HomeController::class, 'pictureActionShow'])->name('action.picture.show');
+Route::get('/info/tournaments', [HomeController::class, 'tournamentInfo'])->name('tournament.information');
+

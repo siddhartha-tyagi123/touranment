@@ -22,19 +22,25 @@
                 <th>Date</th>
                 <th>Age</th>
                 <th>Country</th>
+                <th>City</th>
+                <th>Number of Players</th>
+                <th>Play Field</th>
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>+
+        <tbody>
             @if($touranments->count() > 0)
                 @foreach($touranments as $rs)
                     <tr>
                         <td class="align-middle">{{ $loop->iteration }}</td>
                         <td class="align-middle">{{ $rs->title }}</td>
                         <td class="align-middle">{{ $rs->organiser }}</td> 
-                        <td class="align-middle">{{ $rs->date }}</td> 
+                        <td class="align-middle">{{ $rs->dateTimeTournament }}</td> 
                         <td class="align-middle">{{ $rs->age }}</td> 
-                        <td class="align-middle">{{ $rs->country->country_name }}</td>  
+                        <td class="align-middle">{{ $rs->country->country_name }}</td> 
+                        <td class="align-middle">{{ $rs->city }}</td>
+                        <td class="align-middle">{{ $rs->number_of_players }}</td>  
+                        <td class="align-middle">{{ $rs->play_field }}</td>    
                         <td class="align-middle">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="{{ route('touranments.edit', $rs->id)}}" type="button" class="btn btn-warning">Edit</a>

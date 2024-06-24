@@ -11,11 +11,18 @@ class Tournament extends Model
 
     protected $table = 'touranments';
 
-    protected $fillable = ['title', 'date', 'age','organiser','country_id', 'status'];
+    protected $fillable = ['title', 'date', 'age','organiser','country_id', 'status','city','playing_time','number_of_players',
+                             'play_field'];
 
 
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+
+    public function getDateTimeTournamentAttribute()
+    {
+        return $this->date . ' ' . $this->playing_time;
     }
 }

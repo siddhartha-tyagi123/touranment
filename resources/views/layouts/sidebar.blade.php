@@ -29,6 +29,11 @@
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Touranment</span></a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('pictures.index') }}">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Picture</span></a>
+  </li>
 
   <li class="nav-item">
     <a class="nav-link" href="{{ route('profile', ['id' => auth()->user()->id]) }}">
