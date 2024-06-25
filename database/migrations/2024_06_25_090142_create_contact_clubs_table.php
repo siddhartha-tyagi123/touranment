@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTournamentInfosTable extends Migration
+class CreateContactClubsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateTournamentInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('tournament_infos', function (Blueprint $table) {
+        Schema::create('contact_clubs', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('message')->nullable();
+            $table->text('contect_info')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateTournamentInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tournament_infos');
+        Schema::dropIfExists('contact_clubs');
     }
 }

@@ -23,6 +23,11 @@
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Club</span></a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('club.contact.info') }}">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Club Contact</span></a>
+  </li>
 
   <li class="nav-item">
     <a class="nav-link" href="{{ route('touranments.index') }}">

@@ -55,6 +55,10 @@
             </select>
         </div>
     </div>
+    <div class="row mb-3">
+        <div class="col-sm-12">
+        <textarea name="description" id="description" class="form-control" placeholder="Description"></textarea>
+    </div>
 
 
     <div class="row">
@@ -63,4 +67,12 @@
         </div>
     </div>
 </form>
+<script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#description'))
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
 @endsection

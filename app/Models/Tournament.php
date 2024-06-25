@@ -12,7 +12,7 @@ class Tournament extends Model
     protected $table = 'touranments';
 
     protected $fillable = ['title', 'date', 'age','organiser','country_id', 'status','city','playing_time','number_of_players',
-                             'play_field'];
+                             'play_field', 'description'];
 
 
     public function country()

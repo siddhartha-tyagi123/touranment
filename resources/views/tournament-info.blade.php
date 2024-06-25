@@ -17,23 +17,25 @@
   </style>
 </head>
 <body>
+  
   <div class="container">
     <div class="row">
       @foreach($tournamentInfo as $info)
       <div class="col-md-8 offset-md-2">
         <div class="text-center mb-4">
-          <h1>{{ $info->title}}</h1>
-          <p class="lead">Date & Time: {{ $info->dateTimeTournament}}</p>
-          <p class="lead">Location: {{ $info->country->country_name}} {{$info->city}}</p>
+          <h1>{{ $info->title }}</h1>
+          <p class="lead">Date & Time: {{ $info->dateTimeTournament }}</p>
+          <p class="lead">Location: {{ $info->country->country_name }}, {{ $info->city }}</p>
         </div>
 
         <div class="tournament-info">
           <h2>About the Tournament</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut lectus in purus hendrerit fringilla. Vestibulum consequat, magna ac laoreet porttitor, justo leo hendrerit neque, vel dapibus sem nulla sed nisl. </p>
+          <p>{!! $info->description !!}</p>
         </div>
 
         <div class="tournament-info">
           <h2>Schedule</h2>
+          <!-- Replace these static schedule details with dynamic data if available -->
           <p>Day 1 (June 30, 2024): Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           <p>Day 2 (July 1, 2024): Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           <p>Day 3 (July 2, 2024): Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -42,10 +44,6 @@
         <div class="tournament-info">
           <h2>Participants</h2>
           <ul>
-            <li>Team A</li>
-            <li>Team B</li>
-            <li>Team C</li>
-            <!-- Add more teams as necessary -->
           </ul>
         </div>
 

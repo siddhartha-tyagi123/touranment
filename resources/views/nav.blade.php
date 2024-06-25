@@ -44,12 +44,36 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><button type="button" class="active" onclick="showClubs()">Club</button></li>
                     <li class="dropdown">
+                        @if(auth()->check() && auth()->user()->type == 2)
+                        <button type="button" class="active" onclick="showClubs()"><span>Club</span><i
+                                class="bi bi-chevron-down toggle-dropdown"></i></button>
+                        @else
+                        <button type="button" class="active">Club</button>
+                        @endif
+                        @if(auth()->check() && auth()->user()->type == 2)
+                        <ul> 
+                            <li>
+                                <a href="{{ route('club.contact.us') }}">
+                                    <button type="button">Contact The Club</button>
+                                </a>
+                            </li>
+                        </ul>
+                        @endif
+                    </li>
+                    <li class="dropdown">
+                        @if(auth()->check() && auth()->user()->type == 2)
                         <button type="button" onclick="showTournaments()">
                             <span>Tournament</span>
                             <i class="bi bi-chevron-down toggle-dropdown"></i>
                         </button>
+                        @else
+                        <button type="button">
+                            <span>Tournament</span>
+                            <i class="bi bi-chevron-down toggle-dropdown"></i>
+                        </button>
+                        @endif
+                        @if(auth()->check() && auth()->user()->type == 2)
                         <ul>
                             <li><button type="button" id="upcomingButton">Upcoming Tournament</button></li>
                             <li><button type="button">Organise A Tournament</button></li>
@@ -58,7 +82,6 @@
                                     <button type="button">Pictures</button>
                                 </a>
                             </li>
-
                             <li><button type="button" id="pastButton">Past Tournament</button></li>
                             <li>
                                 <a href="{{ route('tournament.information') }}">
@@ -66,7 +89,9 @@
                                 </a>
                             </li>
                         </ul>
+                        @endif
                     </li>
+
                     <li><button type="button">Players</button></li>
                 </ul>
 

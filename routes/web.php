@@ -7,6 +7,8 @@ use App\Http\Controllers\admin\ClubController;
 use App\Http\Controllers\admin\TouranmentController;
 use App\Http\Controllers\admin\PictureController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactClubController;
+use App\Http\Controllers\admin\PagesController;
  
 // Route::get('welcome', function () {
 //     return view('tournament-info');
@@ -60,8 +62,15 @@ Route::middleware('auth')->group(function () {
  
     Route::get('/profile/{id}', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');
     Route::post('/profile/update/{id}', [App\Http\Controllers\AuthController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/club-contact-info',[PagesController::class, 'clubContactInfo'])->name('club.contact.info');
+    Route::post('/club-contact-info-store',[PagesController::class, 'clubContactInfoStore'])->name('club.contact.info.store');
   
 });
 Route::get('/action/pictures', [HomeController::class, 'pictureActionShow'])->name('action.picture.show');
 Route::get('/info/tournaments', [HomeController::class, 'tournamentInfo'])->name('tournament.information');
+
+Route::get('/club-contact-us', [ContactClubController::class, 'clubContactUs'])->name('club.contact.us');
+Route::post('/club-contact-us-store', [ContactClubController::class, 'clubContactUsStore'])->name('club.contact.us.store');
+
 

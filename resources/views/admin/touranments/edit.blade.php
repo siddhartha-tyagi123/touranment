@@ -71,12 +71,24 @@
             </select>
         </div>
     </div>
-
-
+    <div class="row mb-3">
+        <div class="col-sm-12">
+            <label class="form-label">Description</label>
+            <textarea name="description" id="description" class="form-control" style="width: 100px; height: 500x;">{{ $tournament->description }}</textarea>
+        </div>
+    </div>
     <div class="row">
         <div class="d-grid">
             <button class="btn btn-warning">Update</button>
         </div>
     </div>
 </form>
+<script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#description'))
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
 @endsection

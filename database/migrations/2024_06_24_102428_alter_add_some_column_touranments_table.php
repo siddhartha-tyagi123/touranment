@@ -19,6 +19,7 @@ class AlterAddSomeColumnTouranmentsTable extends Migration
             $table->string('playing_time')->after('date')->nullable();
             $table->integer('number_of_players')->after('playing_time')->nullable();
             $table->string('play_field')->nullable()->after('number_of_players');
+            $table->text('description')->nullable()->after('status');
         });
     }
 
@@ -35,6 +36,7 @@ class AlterAddSomeColumnTouranmentsTable extends Migration
             $table->dropColumn('number_of_players');
             $table->dropColumn('playing_time');
             $table->dropColumn('city');
+            $table->dropColumn('description');
         });
     }
 }

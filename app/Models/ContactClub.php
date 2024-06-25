@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TournamentInfo extends Model
+class ContactClub extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name','email','phone','message','contect_info'];
 }
