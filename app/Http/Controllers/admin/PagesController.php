@@ -10,7 +10,8 @@ class PagesController extends Controller
 {
     public function clubContactInfo()
     {
-        return view('admin.pages.club-contact-info');
+        $clubContactInfo = ContactClub::first();
+        return view('admin.pages.club-contact-info', compact('clubContactInfo'));
     }
 
     public function clubContactInfoStore(Request $request)

@@ -9,6 +9,8 @@ use App\Http\Controllers\admin\PictureController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactClubController;
 use App\Http\Controllers\admin\PagesController;
+use App\Http\Controllers\admin\TournamentCategoryController;
+use App\Http\Controllers\admin\TeamController;
  
 // Route::get('welcome', function () {
 //     return view('tournament-info');
@@ -58,6 +60,23 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('pictures.edit');
         Route::put('edit/{id}', 'update')->name('pictures.update');
         Route::delete('destroy/{id}', 'destroy')->name('pictures.destroy');
+    });
+
+    Route::controller(TournamentCategoryController::class)->prefix('tournamentCategories')->group(function () {
+        Route::get('', 'index')->name('tournament.category.index');
+        Route::get('create', 'create')->name('tournament.category.create');
+        Route::post('store', 'store')->name('tournament.category.store');
+        Route::get('edit/{id}', 'edit')->name('tournament.category.edit');
+        Route::put('edit/{id}', 'update')->name('tournament.category.update');
+        Route::delete('destroy/{id}', 'destroy')->name('tournament.category.destroy');
+    });
+    Route::controller(TeamController::class)->prefix('teams')->group(function () {
+        Route::get('', 'index')->name('teams.index');
+        Route::get('create', 'create')->name('teams.create');
+        Route::post('store', 'store')->name('teams.store');
+        Route::get('edit/{id}', 'edit')->name('teams.edit');
+        Route::put('edit/{id}', 'update')->name('teams.update');
+        Route::delete('destroy/{id}', 'destroy')->name('teams.destroy');
     });
  
     Route::get('/profile/{id}', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');

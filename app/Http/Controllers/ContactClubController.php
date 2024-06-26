@@ -9,7 +9,8 @@ class ContactClubController extends Controller
 {
     public function clubContactUs()
     {
-        return view('contact-club');
+        $clubContactInfo = ContactClub::first();
+        return view('contact-club', compact('clubContactInfo'));
     }
 
     public function clubContactUsStore(Request $request) 

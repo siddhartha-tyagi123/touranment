@@ -33,10 +33,9 @@
             </form>
         </div>
         <div class="col-md-6">
-            <h2>Contact Information</h2>
-            <p><strong>Address:</strong> 123 Club Street, Cityville</p>
-            <p><strong>Phone:</strong> +1234567890</p>
-            <p><strong>Email:</strong> info@example.com</p>
+            <h2>Club Contact Information</h2>
+            <p>{!! $clubContactInfo->contect_info !!}</p>
+          
         </div>
     </div>
 </div>
