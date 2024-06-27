@@ -11,6 +11,7 @@ use App\Http\Controllers\ContactClubController;
 use App\Http\Controllers\admin\PagesController;
 use App\Http\Controllers\admin\TournamentCategoryController;
 use App\Http\Controllers\admin\TeamController;
+use App\Http\Controllers\admin\UserController;
  
 // Route::get('welcome', function () {
 //     return view('tournament-info');
@@ -78,6 +79,15 @@ Route::middleware('auth')->group(function () {
         Route::put('edit/{id}', 'update')->name('teams.update');
         Route::delete('destroy/{id}', 'destroy')->name('teams.destroy');
     });
+
+    Route::controller(UserController::class)->prefix('users')->group(function () {
+        Route::get('', 'index')->name('users.index');
+        Route::get('create', 'create')->name('users.create');
+        Route::post('store', 'store')->name('users.store');
+        Route::get('edit/{id}', 'edit')->name('users.edit');
+        Route::put('edit/{id}', 'update')->name('users.update');
+        Route::delete('destroy/{id}', 'destroy')->name('users.destroy');
+    });
  
     Route::get('/profile/{id}', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');
     Route::post('/profile/update/{id}', [App\Http\Controllers\AuthController::class, 'updateProfile'])->name('profile.update');
@@ -86,8 +96,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/club-contact-info-store',[PagesController::class, 'clubContactInfoStore'])->name('club.contact.info.store');
   
 });
-Route::get('/action/pictures', [HomeController::class, 'pictureActionShow'])->name('action.picture.show');
-Route::get('/info/tournaments', [HomeController::class, 'tournamentInfo'])->name('tournament.information');
+Route::get('/action-pictures', [HomeController::class, 'pictureActionShow'])->name('action.picture.show');
+Route::get('/info-tournaments', [HomeController::class, 'tournamentInfo'])->name('tournament.information');
+Route::get('/upcoming-tournaments', [HomeController::class, 'upcomingTournament'])->name('upcoming.tournament');
+Route::get('/past-tournaments', [HomeController::class, 'pastTournament'])->name('past.tournament');
+
+
 
 Route::get('/club-contact-us', [ContactClubController::class, 'clubContactUs'])->name('club.contact.us');
 Route::post('/club-contact-us-store', [ContactClubController::class, 'clubContactUsStore'])->name('club.contact.us.store');

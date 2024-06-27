@@ -26,93 +26,88 @@
 
     <!-- Main CSS File -->
     <link href="admin_assets/assets/css/main.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <style>
-    .card {
-        bakgroung-color: black;
+    /* .card {
+            background-color: black; 
+        } */
+    body {
+        margin-bottom: 0px;
+        background-color: rgb(0 0 0);
+        background-image: url(admin_assets/image/logo.png);
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+    .main{
+        background-color: #000000bf;
     }
     </style>
 </head>
 
 <body class="index-page">
-
+<div class="main">
+    <!-- Header -->
     <header id="header" class="header d-flex align-items-center sticky-top">
-        <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+        <div class="container position-relative d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-                <img src="admin_assets/image/images.png" alt="Logo" class="img-fluid">
-                <h1 class="sitename">Your Site Name</h1>
+                <img src="admin_assets/image/logo.png" alt="Logo" class="img-fluid">
             </a>
 
+            <!-- Navigation Menu -->
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li class="dropdown">
-                        @if(auth()->check() && auth()->user()->type == 2)
-                        <button type="button" class="active" onclick="showClubs()"><span>Club</span><i
-                                class="bi bi-chevron-down toggle-dropdown"></i></button>
-                        @else
-                        <button type="button" class="active">Club</button>
-                        @endif
-                        @if(auth()->check() && auth()->user()->type == 2)
-                        <ul> 
-                            <li>
-                                <a href="{{ route('club.contact.us') }}">
-                                    <button type="button">Contact The Club</button>
-                                </a>
-                            </li>
+                        <!-- Example of conditional rendering based on authentication and user type -->
+                        <?php if(auth()->check() && auth()->user()->type == 3 && auth()->user()->status == 1): ?>
+                        <a class="active" onclick="showClubs()">
+                            <span>Club</span>
+                            <i class="bi bi-chevron-down toggle-dropdown"></i>
+                        </a>
+                        <ul>
+                            <li><a href="{{ route('club.contact.us') }}">Contact The Club</a></li>
+                            <li><a href="{{ route('upcoming.tournament') }}">Upcoming Tournament</a></li>
+                            <li><a href="{{ route('past.tournament') }}">Past Tournament</a></li>
+                            <li><a>Organise A Tournament</a></li>
+                            <li><a href="{{ route('action.picture.show') }}">Pictures</a></li>
+                            <li><a href="{{ route('tournament.information') }}">Informations & Rules</a></li>
                         </ul>
-                        @endif
+                        <?php else: ?>
+                        <a class="active">Club</a>
+                        <?php endif; ?>
                     </li>
                     <li class="dropdown">
-                        @if(auth()->check() && auth()->user()->type == 2)
-                        <button type="button" onclick="showTournaments()">
+                        <!-- Example of conditional rendering for different user types -->
+                        <?php if(auth()->check() && auth()->user()->type == 2): ?>
+                        <a onclick="showTournaments()">
                             <span>Tournament</span>
                             <i class="bi bi-chevron-down toggle-dropdown"></i>
-                        </button>
-                        @else
-                        <button type="button">
+                        </a>
+                        <?php else: ?>
+                        <a>
                             <span>Tournament</span>
-                            <i class="bi bi-chevron-down toggle-dropdown"></i>
-                        </button>
-                        @endif
-                        @if(auth()->check() && auth()->user()->type == 2)
-                        <ul>
-                            <li><button type="button" id="upcomingButton">Upcoming Tournament</button></li>
-                            <li><button type="button">Organise A Tournament</button></li>
-                            <li>
-                                <a href="{{ route('action.picture.show') }}">
-                                    <button type="button">Pictures</button>
-                                </a>
-                            </li>
-                            <li><button type="button" id="pastButton">Past Tournament</button></li>
-                            <li>
-                                <a href="{{ route('tournament.information') }}">
-                                    <button type="button">Informations & Rules</button>
-                                </a>
-                            </li>
-                        </ul>
-                        @endif
+                        </a>
+                        <?php endif; ?>
                     </li>
 
-                    <li><button type="button">Players</button></li>
+                    <li><a>Players</a></li>
                 </ul>
 
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
+            <!-- User Authentication Links -->
             <div class="header-social-links">
-                @guest
-                <button type="button" class="w-100 mb-2 sign-in"
-                    onclick="window.location.href='{{ route('login') }}'">Sign In/Log In</button>
-                @endguest
-
-                @auth
-                <button type="button" class="w-100 mb-2 sign-in"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Log Out
-                </button>
+                <?php if(auth()->guest()): ?>
+                <a class="w-100 mb-2 sign-in" onclick="window.location.href='{{ route('login') }}'">Sign In/Log In</a>
+                <?php else: ?>
+                <a class="w-100 mb-2 sign-in"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
                     @csrf
                 </form>
-                @endauth
+                <?php endif; ?>
             </div>
 
         </div>

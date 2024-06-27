@@ -32,7 +32,14 @@
                             </div>
                             <form action="{{ route('register.save') }}" method="POST" class="user">
                                 @csrf
-                                <input type="hidden" name="type" value="2">
+                                <!-- <input type="hidden" name="type" value="2"> -->
+                                <div class="form-group">
+                                    <label for="">CREATE AN ACCOUNT</label>
+                                    <select name="type" id="" class="form-control">
+                                        <option value="3">Register as a Club</option>
+                                        <option value="2">Register as a Organiser</option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <input name="name" type="text"
                                         class="form-control  @error('name')is-invalid @enderror"

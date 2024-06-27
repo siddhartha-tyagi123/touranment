@@ -1,20 +1,85 @@
 @include('nav')
 
+<div class="container">
+    <div class="row">
+      <!-- Main content area -->
+      <main role="main">
 
-    <main class="main">
-
-        <!-- Hero Section -->
-        <section id="hero" class="hero section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6 text-center" data-aos="fade-up" data-aos-delay="100">
-                        <h3>PICTURE OF CLUB/LOGO
-                        </h3>
-                    </div>
-                </div>
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Dashboard</h1>
+        </div>
+        <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-comments"></i>
+              </div>
+              <div class="mr-5">26 New Messages!</div>
             </div>
-        </section><!-- /Hero Section -->
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-list"></i>
+              </div>
+              <div class="mr-5">11 New Tasks!</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-shopping-cart"></i>
+              </div>
+              <div class="mr-5">123 New Orders!</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-support"></i>
+              </div>
+              <div class="mr-5">13 New Tickets!</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
 
+        <div class="row">
+          <div class="col-md-12">
+            <p>This is the main content area. Replace this with your actual content.</p>
+          </div>
+        </div>
         <!-- Gallery Section -->
         <section id="gallery" class="gallery section">
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -139,9 +204,9 @@
                 </div>
             </div>
         </section>
-
-    </main>
-
+      </main>
+    </div>
+</div>
     <footer id="footer" class="footer">
         <div class="container">
             <div class="copyright text-center">
@@ -286,6 +351,7 @@
         });
     });
     </script>
+    </div>
 </body>
 
 </html>

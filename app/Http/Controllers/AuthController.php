@@ -37,7 +37,7 @@ class AuthController extends Controller
                     'phone' => $request['phone'],
                     'country_id' => $request['country_id'],
                 ]);
-          } else {
+          } elseif($request['type'] == 3) {
                     User::create([
                         'name' => $request['name'],
                         'email' => $request['email'],
@@ -45,10 +45,11 @@ class AuthController extends Controller
                         'address' => $request['address'],
                         'phone' => $request['phone'],
                         'country_id' => $request['country_id'],
+                        'type' => $request['type'],
                     ]);
          }
 
-             return redirect()->route('login'); // Redirect to the login page
+             return redirect()->route('login');
     }
 
 //     public function registerSave(Request $request)
@@ -106,6 +107,10 @@ class AuthController extends Controller
           
             return redirect()->route('dashboard');
         } elseif($user->type === 2){
+            $request->session()->regenerate();
+          
+            return redirect()->route('home');
+        }elseif($user->type === 3){
             $request->session()->regenerate();
           
             return redirect()->route('home');

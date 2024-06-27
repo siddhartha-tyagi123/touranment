@@ -1,3 +1,5 @@
+@include('nav')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +16,9 @@
     .tournament-info {
       margin-bottom: 30px;
     }
+    h1, h2, h3, h4, h5, h6 {
+      color: black;
+    }
   </style>
 </head>
 <body>
@@ -22,36 +27,40 @@
     <div class="row">
       @foreach($tournamentInfo as $info)
       <div class="col-md-8 offset-md-2">
-        <div class="text-center mb-4">
-          <h1>{{ $info->title }}</h1>
-          <p class="lead">Date & Time: {{ $info->dateTimeTournament }}</p>
-          <p class="lead">Location: {{ $info->country->country_name }}, {{ $info->city }}</p>
-        </div>
+        <div class="card mb-4">
+          <div class="card-header text-center">
+            <h1>{{ $info->title }}</h1>
+          </div>
+          <div class="card-body">
+            <p class="lead">Date & Time: {{ $info->dateTimeTournament }}</p>
+            <p class="lead">Location: {{ $info->country->country_name }}, {{ $info->city }}</p>
+            
+            <div class="tournament-info">
+              <h2>About the Tournament</h2>
+              <p>{!! $info->description !!}</p>
+            </div>
 
-        <div class="tournament-info">
-          <h2>About the Tournament</h2>
-          <p>{!! $info->description !!}</p>
-        </div>
+            <div class="tournament-info">
+              <h2>Schedule</h2>
+              <!-- Replace these static schedule details with dynamic data if available -->
+              <p>Day 1 (June 30, 2024): Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>Day 2 (July 1, 2024): Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>Day 3 (July 2, 2024): Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
 
-        <div class="tournament-info">
-          <h2>Schedule</h2>
-          <!-- Replace these static schedule details with dynamic data if available -->
-          <p>Day 1 (June 30, 2024): Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p>Day 2 (July 1, 2024): Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p>Day 3 (July 2, 2024): Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+            <div class="tournament-info">
+              <h2>Participants</h2>
+              <ul>
+                <!-- Add participant details dynamically here -->
+              </ul>
+            </div>
 
-        <div class="tournament-info">
-          <h2>Participants</h2>
-          <ul>
-          </ul>
+            <div class="tournament-info">
+              <h2>Contact Information</h2>
+              <p>For inquiries, please contact: <a href="mailto:info@example.com">info@example.com</a></p>
+            </div>
+          </div>
         </div>
-
-        <div class="tournament-info">
-          <h2>Contact Information</h2>
-          <p>For inquiries, please contact: <a href="mailto:info@example.com">info@example.com</a></p>
-        </div>
-
       </div>
       @endforeach
     </div>

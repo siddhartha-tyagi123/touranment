@@ -104,4 +104,15 @@ class HomeController extends Controller
         return view('tournament-info',['tournamentInfo' => $tournamentInfo]);
     }
 
+    public function upcomingTournament()
+    {
+        $upcomingTournaments = Tournament::where('status','upcoming')->get(); 
+        return view('upcoming-tournament',['upcomingTournaments' => $upcomingTournaments]);
+    }
+    
+    public function pastTournament()
+    {
+        $pastTournaments = Tournament::where('status','past')->get(); 
+        return view('past-tournament',['pastTournaments' => $pastTournaments]);
+    }
 }
