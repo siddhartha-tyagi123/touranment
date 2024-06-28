@@ -13,13 +13,30 @@ class ClubController extends Controller
      /**
      * Display a listing of the resource.
      */
+   
     public function index(Request $request)
     {
-     
-        $clubs = Club::orderBy('created_at', 'DESC')->get();
-  
-        return view('admin.clubs.index', compact('clubs'));
+        $search = $request->query('search');
+        $perPage = $request->query('per_page', 10); // Default per page is 10
+
+        $clubsQuery = Club::query();
+
+        // Handle search if there's a search query
+        if (!empty($search)) {
+            $clubsQuery->where(function($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhereHas('country', function($query) use ($search) {
+                        $query->where('country_name', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        // Paginate the results
+        $clubs = $clubsQuery->paginate($perPage);
+
+        return view('admin.clubs.index', compact('clubs', 'search', 'perPage'));
     }
+
   
     /**
      * Show the form for creating a new resource.

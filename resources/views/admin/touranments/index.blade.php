@@ -13,6 +13,28 @@
             {{ Session::get('success') }}
         </div>
     @endif
+    <div class="d-flex justify-content-between mb-3">
+    <!-- Per page selection -->
+    <form action="{{ route('touranments.index') }}" method="GET" class="form-inline">
+        <div class="form-group mb-0">
+            <label for="per_page" class="mr-2">Per Page:</label>
+            <select name="per_page" id="per_page" class="form-control" onchange="this.form.submit()">
+                <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+                <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20</option>
+            </select>
+        </div>
+    </form>
+    <!-- Search form -->
+    <form action="{{ route('touranments.index') }}" method="GET" class="flex-grow-1 mr-2">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search..."
+                value="{{ isset($search) ? $search : '' }}">
+            <button type="submit" class="btn btn-outline-primary">Search</button>
+        </div>
+    </form>
+
+</div>
     <table class="table table-hover">
         <thead class="table-primary">
             <tr>
@@ -60,4 +82,13 @@
             @endif
         </tbody>
     </table>
+     <!-- Pagination links -->
+ <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+            <small>Showing {{ $touranments->firstItem() }} to {{ $touranments->lastItem() }} of {{ $touranments->total() }} results</small>
+        </div>
+        <div>
+            {{ $touranments->appends(['search' => $search, 'per_page' => $perPage])->links('pagination::bootstrap-4') }}
+        </div>
+    </div>
 @endsection

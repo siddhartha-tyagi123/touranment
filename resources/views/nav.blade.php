@@ -63,16 +63,15 @@
                         <?php if(auth()->check() && auth()->user()->type == 3 && auth()->user()->status == 1): ?>
                         <a class="active" onclick="showClubs()">
                             <span>Club</span>
-                            <i class="bi bi-chevron-down toggle-dropdown"></i>
                         </a>
-                        <ul>
+                        <!-- <ul>
                             <li><a href="{{ route('club.contact.us') }}">Contact The Club</a></li>
                             <li><a href="{{ route('upcoming.tournament') }}">Upcoming Tournament</a></li>
                             <li><a href="{{ route('past.tournament') }}">Past Tournament</a></li>
                             <li><a>Organise A Tournament</a></li>
                             <li><a href="{{ route('action.picture.show') }}">Pictures</a></li>
                             <li><a href="{{ route('tournament.information') }}">Informations & Rules</a></li>
-                        </ul>
+                        </ul> -->
                         <?php else: ?>
                         <a class="active">Club</a>
                         <?php endif; ?>
